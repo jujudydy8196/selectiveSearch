@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 2.9)
+project( selectiveSearch )
+find_package( OpenCV )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( selectiveSearch selectiveSearch.cpp )
+target_link_libraries( selectiveSearch ${OpenCV_LIBS} )
