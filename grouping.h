@@ -31,7 +31,7 @@ region* hierarchicalGrouping(image<rgb> *im, double sigma, double k, double min_
     // cout << colorHists[4].c1[23] <<" " << colorHists[9].c1[25] << endl;
     textureHist* textureHists = get_textureHists(indexmap,num_region,colorSpaceIdx,im);
     // cout << textureHists[100].c1[50] <<" " << colorHists[50].c3[20] << endl;
-    int a[4]={1,1,0,0};
+    int a[4]={1,1,1,1};
     string s;
     const char * ch ;
 

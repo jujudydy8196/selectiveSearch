@@ -71,8 +71,8 @@ int main(int argc, char **argv) {
 					cout << endl;
 				}
 			    for(int i = 0; i < num_combinedRegions; i++) {
-			    	unionor = (max(combinedRegions[i].box[3],gtBox[3])-min(combinedRegions[i].box[1],gtBox[1]))*(max(combinedRegions[i].box[2],gtBox[2])-min(combinedRegions[i].box[0],gtBox[0]));
-			    	unionand = (min(combinedRegions[i].box[3],gtBox[3])-max(combinedRegions[i].box[1],gtBox[1]))*(min(combinedRegions[i].box[2],gtBox[2])-max(combinedRegions[i].box[0],gtBox[0]));
+			    	unionor = (max(combinedRegions[i].box[3],gtBox[2])-min(combinedRegions[i].box[1],gtBox[0]))*(max(combinedRegions[i].box[2],gtBox[3])-min(combinedRegions[i].box[0],gtBox[1]));
+			    	unionand = (min(combinedRegions[i].box[3],gtBox[2])-max(combinedRegions[i].box[1],gtBox[0]))*(min(combinedRegions[i].box[2],gtBox[3])-max(combinedRegions[i].box[0],gtBox[1]));
 			    	if (double(unionand/unionor) > maxOverlap) {
 			    		maxOverlap=unionand/unionor;
 			    		maxOverlapIdx=i;
@@ -128,16 +128,17 @@ int main(int argc, char **argv) {
 	    // save all windows 
 	    for(int i = 0; i < num_combinedRegions; i++) {
 	    	rgb color = random_rgb();
+	    	// cout << combinedRegions[i].box[0] << " " << combinedRegions[i].box[1] << " "<< combinedRegions[i].box[2] << " " << combinedRegions[i].box[3] << endl;
 	    	for(int j = combinedRegions[i].box[0]; j < combinedRegions[i].box[2]; j++){
-	    		imRef(im,combinedRegions[i].box[1],j) = color;
-	    		imRef(im,combinedRegions[i].box[3],j) = color;
+	    		imRef(im,j,combinedRegions[i].box[1]) = color;
+	    		imRef(im,j,combinedRegions[i].box[3]) = color;
 	    	}
 	    	for(int j =combinedRegions[i].box[1]; j < combinedRegions[i].box[3]; j++){
-	    	    imRef(im,j,combinedRegions[i].box[0]) = color;
-	    	    imRef(im,j,combinedRegions[i].box[2]) = color;
+	    	    imRef(im,combinedRegions[i].box[0],j) = color;
+	    	    imRef(im,combinedRegions[i].box[2],j) = color;
 	    	}
-	    	unionor = (max(combinedRegions[i].box[3],gtBox[3])-min(combinedRegions[i].box[1],gtBox[1]))*(max(combinedRegions[i].box[2],gtBox[2])-min(combinedRegions[i].box[0],gtBox[0]));
-	    	unionand = (min(combinedRegions[i].box[3],gtBox[3])-max(combinedRegions[i].box[1],gtBox[1]))*(min(combinedRegions[i].box[2],gtBox[2])-max(combinedRegions[i].box[0],gtBox[0]));
+	    	unionor = (max(combinedRegions[i].box[3],gtBox[2])-min(combinedRegions[i].box[1],gtBox[0]))*(max(combinedRegions[i].box[2],gtBox[3])-min(combinedRegions[i].box[0],gtBox[1]));
+	    	unionand = (min(combinedRegions[i].box[3],gtBox[2])-max(combinedRegions[i].box[1],gtBox[0]))*(min(combinedRegions[i].box[2],gtBox[3])-max(combinedRegions[i].box[0],gtBox[1]));
 	    	if (double(unionand/unionor) > maxOverlap) {
 	    		maxOverlap=unionand/unionor;
 	    		maxOverlapIdx=i;
@@ -155,12 +156,12 @@ int main(int argc, char **argv) {
 
 	    im = matToImage(imMat);
 	    for(int j = combinedRegions[maxOverlapIdx].box[0]; j < combinedRegions[maxOverlapIdx].box[2]; j++){
-			imRef(im,combinedRegions[maxOverlapIdx].box[1],j) = color;
-			imRef(im,combinedRegions[maxOverlapIdx].box[3],j) = color;
+			imRef(im,j,combinedRegions[maxOverlapIdx].box[1]) = color;
+			imRef(im,j,combinedRegions[maxOverlapIdx].box[3]) = color;
 		}
 		for(int j =combinedRegions[maxOverlapIdx].box[1]; j < combinedRegions[maxOverlapIdx].box[3]; j++){
-		    imRef(im,j,combinedRegions[maxOverlapIdx].box[0]) = color;
-		    imRef(im,j,combinedRegions[maxOverlapIdx].box[2]) = color;
+		    imRef(im,combinedRegions[maxOverlapIdx].box[0],j) = color;
+		    imRef(im,combinedRegions[maxOverlapIdx].box[2],j) = color;
 		}
 		color.r=(uchar)0;
 		color.g=(uchar)255;
